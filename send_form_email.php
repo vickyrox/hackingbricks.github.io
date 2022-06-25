@@ -1,10 +1,12 @@
 <?php 
 // EDIT THE 2 LINES BELOW AS REQUIRED
-$send_email_to = "admin@frittt.com";$email_subject = "Your email subject line";
+$send_email_to = "vikasraikwar.786@gmail.com";
+$email_subject = "from website";
 function send_email($firstName,$lastName,$emailAddress,$company,$message)
 {
   global $send_email_to;
-  global $email_subject;  $headers = "MIME-Version: 1.0" . "\r\n";
+  global $email_subject;
+  $headers = "MIME-Version: 1.0" . "\r\n";
   $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
   $headers .= "From: ".$emailAddress. "\r\n";
   $message = "<strong>Email = </strong>".$emailAddress."<br>";
@@ -14,8 +16,9 @@ function send_email($firstName,$lastName,$emailAddress,$company,$message)
   $message .= "<strong>Message = </strong>".$message."<br>";
   @mail($send_email_to, $email_subject, $message,$headers);
   return true;
-}
-function validate($firstName,$lastName,$emailAddress,$company,$message){
+}
+function validate($firstName,$lastName,$emailAddress,$company,$message)
+{
   $return_array = array();
   $return_array['success'] = '1';
   $return_array['name_msg'] = '';
@@ -33,7 +36,8 @@ function validate($firstName,$lastName,$emailAddress,$company,$message){
       $return_array['success'] = '0';
       $return_array['email_msg'] = 'enter valid email.';  
     }
-  }  if($firstName == '')
+  }
+  if($firstName == '')
   {
     $return_array['success'] = '0';
     $return_array['name_msg'] = 'name is required';
@@ -45,7 +49,8 @@ function validate($firstName,$lastName,$emailAddress,$company,$message){
       $return_array['success'] = '0';
       $return_array['name_msg'] = 'enter valid name.';
     }
-  }		
+  }
+		
   if($message == '')
   {
     $return_array['success'] = '0';
@@ -59,12 +64,19 @@ function validate($firstName,$lastName,$emailAddress,$company,$message){
     }
   }
   return $return_array;
-}
+}
 $firstName = $_POST['txtFirstName'];
-$lastName = $_POST['txtLastName'];$emailAddress = $_POST['txtEmailAddress'];
+$lastName = $_POST['txtLastName'];
+$emailAddress = $_POST['txtEmailAddress'];
 $company =  $_POST['txtCompany'];
 $message = $_POST['txtMessage'];
-
-$return_array = validate($firstName,$lastName,$emailAddress,$company,$message);
-if($return_array['success'] == '1'){	send_email($firstName,$lastName,$emailAddress,$company,$message);}header('Content-type: text/json');echo json_encode($return_array);die();
-?>
+
+$return_array = validate($firstName,$lastName,$emailAddress,$company,$message);
+if($return_array['success'] == '1')
+{
+	send_email($firstName,$lastName,$emailAddress,$company,$message);
+}
+header('Content-type: text/json');
+echo json_encode($return_array);
+die();
+?>
